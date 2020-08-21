@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<form method="GET" action="{% url 'search' %}">
+    <div class="form-group">
+        <input type="text" class="form-control" name="search" placeholder="Search">
+    </div>
+    <button type="submit" class="btn btn-light">Submit</button>
+</form>
+
+{% for message in messages %}
+    {{ message }}
+{% endfor %}
+
+{% if all_resources %}
+
+    {% if 'search' in request.path %}
+        <a href="{% url 'home' %}" >Clear search</a>
+    {% endif %}
+
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Link</th>
+            <th>Software</th>
+            <th>Attachment</th>
+            <th></th>
+        </tr>
+        {% for resource in all_resources %}
+        <tr>
+            <td>{{ resource.name }}</td>
+            <td>
+            {% if resource.link %}
+                <a href="{{ resource.link }}">{{ resource.link }}</a>
+            {% endif %}
+            </td>
+            <td>
+                {% if resource.language %}
+                <a href="{% url 'search_software' resource.language|slugify|title %}" class="btn btn-default">{{ resource.language.language }}</a>
+                {% endif %}
+                {% if resource.framework %}
+                <a href="{% url 'search_software' resource.framework|slugify|title %}" class="btn btn-default">{{ resource.framework.framework }}</a>
+                {% endif %}
+                {% if resource.database %}
+                <a href="{% url 'search_software' resource.database|slugify|title %}" class="btn btn-default">{{ resource.database }}</a>
+                {% endif %}
+                {% if resource.technology %}
+                <a href="{% url 'search_software' resource.technology|slugify|title %}" class="btn btn-default">{{ resource.technology }}</a>
+                {% endif %}
+            </td>
+            <td>
+                {% if resource.attachment %}
+                <a href="file:///{{ resource.attachment }}"><i class="glyphicon glyphicon-paperclip"></i></a>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'update_resource' resource.id %}" class="btn btn-info"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a href="{% url 'delete_resource' resource.id %}" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+{% endblock %}

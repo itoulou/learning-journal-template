@@ -1,0 +1,20 @@
+.body-container {
+    width: 50% !important;
+    margin: auto !important;
+}
+
+form, table {
+    margin-top: 2rem !important;
+}
+
+.btn-default {
+    color: #fff;
+    background-color: #222;
+    font-size: 1rem;
+    border-radius: 20px;
+}
+
+.btn-default:hover, .btn-default:focus {
+    background-color: #222;
+    color: #fff
+}

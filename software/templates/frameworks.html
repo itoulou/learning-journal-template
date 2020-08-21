@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load static %}
+{% block title %}Frameworks{% endblock %}
+{% block content %}
+
+{% if choices %}
+<table class="table">
+    <tr>
+        <th><h2>Frameworks</h2></th>
+    </tr>
+    {% for choice in choices %}
+    <tr>
+        <td><h4><a href="{% url 'update_framework' choice.id %}">{{ choice.framework }}</a></h4></td>
+        <td>
+            <a href="{% url 'update_framework' choice.id %}" class="btn btn-info"><i class="glyphicon glyphicon-pencil"></i></a>
+            <a href="{% url 'delete_framework' choice.id %}" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+<a href="{% url 'create_framework' %}" class="btn btn-primary">Create New Framework</a>
+{% endblock %}
