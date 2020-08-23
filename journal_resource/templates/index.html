@@ -11,14 +11,16 @@
 </form>
 
 {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
     {{ message }}
+    {% endif %}
 {% endfor %}
 
-{% if all_resources %}
+{% if 'search' in request.path %}
+    <a href="{% url 'home' %}" >Clear search</a>
+{% endif %}
 
-    {% if 'search' in request.path %}
-        <a href="{% url 'home' %}" >Clear search</a>
-    {% endif %}
+{% if all_resources %}
 
     <table class="table">
         <tr>
@@ -52,7 +54,7 @@
             </td>
             <td>
                 {% if resource.attachment %}
-                <a download="{{ resource.attachment }}"><i class="glyphicon glyphicon-paperclip"></i></a>
+                <a href="{% url 'download_attachment' resource.id %}"><i class="glyphicon glyphicon-paperclip" data-toggle="tooltip" data-placement="top" title="{{ resource.filename }}"></i></a>
                 {% endif %}
             </td>
             <td>
@@ -62,5 +64,25 @@
         </tr>
         {% endfor %}
     </table>
+    <br><br>
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <div class="success-message">
+            <h4>{{ message }}</h4>
+        </div>
+        {% endif %}
+    {% endfor %}
 {% endif %}
+<script>
+    $(document).ready(function(){
+
+        setTimeout(function() {
+            $('.success-message').fadeOut()
+        }, 2000);
+
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+    });
+</script>
 {% endblock %}

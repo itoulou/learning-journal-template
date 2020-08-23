@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
-from journal_resource.views import home, delete_resource, update_resource
+from journal_resource.views import home, delete_resource, update_resource, download_attachment
 from create_resource import urls as create_resource_urls
 from search import urls as search_urls
 from software import urls as software_urls
@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^delete_resource/(?P<pk>\d+)/$', delete_resource, name="delete_resource"),
     url(r'^create-resource/', include(create_resource_urls)),
     url(r'^search/', include(search_urls)),
-    url(r'^software/', include(software_urls))
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    url(r'^software/', include(software_urls)),
+    url(r'^download/(?P<pk>\d+)/$', download_attachment, name="download_attachment")
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

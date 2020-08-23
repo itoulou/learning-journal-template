@@ -1,3 +1,4 @@
+import os
 from django.db import models
 
 # Create your models here.
@@ -40,3 +41,7 @@ class Resource(models.Model):
 
     def __str__(self):
         return self.name
+
+
+    def filename(self):
+        return os.path.basename(self.attachment.name)
