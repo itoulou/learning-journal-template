@@ -37,6 +37,8 @@ def delete_resource(request, pk):
     return redirect('home')
 
 def download_attachment(request, pk):
+    print(dir(request.user))
+    print(Path.home())
     resource = get_object_or_404(Resource, pk=pk)
     s3 = boto3.resource('s3')
     s3.Bucket(AWS_STORAGE_BUCKET_NAME).download_file('media/' + str(resource.attachment), str(Path.home()) + '/' + str(resource.filename()))
