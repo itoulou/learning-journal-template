@@ -41,6 +41,6 @@ def download_attachment(request, pk):
     print(Path.home())
     resource = get_object_or_404(Resource, pk=pk)
     s3 = boto3.resource('s3')
-    s3.Bucket(AWS_STORAGE_BUCKET_NAME).download_file('media/' + str(resource.attachment), str(Path.home()) + '/' + str(resource.filename()))
+    s3.Bucket(AWS_STORAGE_BUCKET_NAME).download_file('media/' + str(resource.attachment), '/home/sol-022/' + str(resource.filename()))
     messages.success(request, 'File {} downloaded'.format(resource.filename()))
     return redirect('home')
