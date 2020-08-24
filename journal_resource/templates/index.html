@@ -54,7 +54,7 @@
             </td>
             <td>
                 {% if resource.attachment %}
-                <a href="{% url 'download_attachment' resource.id %}"><i class="glyphicon glyphicon-paperclip" data-toggle="tooltip" data-placement="top" title="{{ resource.filename }}"></i></a>
+                <a href="https://learning-journal-template.s3-eu-west-1.amazonaws.com/media/{{ resource.attachment }}" target="_blank"><i class="glyphicon glyphicon-paperclip" data-toggle="tooltip" data-placement="top" title="{{ resource.filename }}"></i></a>
                 {% endif %}
             </td>
             <td>
@@ -64,14 +64,6 @@
         </tr>
         {% endfor %}
     </table>
-    <br><br>
-    {% for message in messages %}
-        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-        <div class="success-message">
-            <h4>{{ message }}</h4>
-        </div>
-        {% endif %}
-    {% endfor %}
 {% endif %}
 <script>
     $(document).ready(function(){
